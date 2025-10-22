@@ -1,0 +1,279 @@
+{
+  "_comment": "Template configuration file for Entra ID Hardening - Copy to config.json and customize",
+  
+  "TenantId": "your-tenant-id-here",
+  "TenantDomain": "yourdomain.onmicrosoft.com",
+  "OrganizationName": "Client Organization Name",
+  
+  "DeploymentSettings": {
+    "WhatIfByDefault": true,
+    "CreateRollbackFiles": true,
+    "LoggingLevel": "Verbose",
+    "LogRetentionDays": 90
+  },
+  
+  "BreakGlassAccounts": {
+    "Enabled": true,
+    "Count": 2,
+    "NamingPattern": "EmergencyAdmin{0}",
+    "PasswordLength": 32,
+    "UseFIDO2": true,
+    "ExcludeFromAllPolicies": true,
+    "NotificationEmails": [
+      "security-team@yourdomain.com"
+    ],
+    "StorageLocations": [
+      "Primary Safe - Location 1",
+      "Secondary Safe - Location 2"
+    ]
+  },
+  
+  "MFA": {
+    "Enabled": true,
+    "EnforceForAllUsers": true,
+    "EnforceForAdmins": true,
+    "AllowedMethods": [
+      "MicrosoftAuthenticator",
+      "FIDO2",
+      "WindowsHelloForBusiness",
+      "PhoneAppNotification",
+      "PhoneAppOTP"
+    ],
+    "BlockedMethods": [
+      "SMS",
+      "VoiceCall"
+    ],
+    "GracePeriodDays": 14
+  },
+  
+  "PasswordlessAuth": {
+    "Enabled": true,
+    "EnableFIDO2": true,
+    "EnableMicrosoftAuthenticator": true,
+    "EnableWindowsHello": true,
+    "EnableTemporaryAccessPass": true,
+    "TemporaryAccessPassLifetime": 60,
+    "PrioritizeForPrivilegedAccounts": true
+  },
+  
+  "ConditionalAccess": {
+    "Enabled": true,
+    "ReportOnlyDuration": 7,
+    "AutoEnforceAfterReportOnlyPeriod": false,
+    "BaselinePolicies": {
+      "RequireMFAForAllUsers": true,
+      "BlockLegacyAuth": true,
+      "RequireCompliantDeviceForAdmins": true,
+      "BlockHighRiskSignIns": true,
+      "RequirePasswordChangeForHighRiskUsers": true,
+      "RequireMFAForAdmins": true,
+      "RequireMFAForAzureManagement": true,
+      "RequireTrustedLocationForAdmins": false
+    },
+    "TrustedLocations": [
+      {
+        "Name": "Corporate Headquarters",
+        "IpRanges": ["203.0.113.0/24"],
+        "CountriesAndRegions": [],
+        "TrustedLocation": true
+      },
+      {
+        "Name": "Branch Office",
+        "IpRanges": ["198.51.100.0/24"],
+        "CountriesAndRegions": [],
+        "TrustedLocation": true
+      }
+    ],
+    "EmergencyPolicies": {
+      "Create": true,
+      "Prefix": "EM",
+      "InitialState": "disabled"
+    },
+    "ExcludedUsers": [],
+    "ExcludedGroups": []
+  },
+  
+  "PIM": {
+    "Enabled": true,
+    "Roles": {
+      "GlobalAdministrator": {
+        "RequireJIT": true,
+        "MaxActivationDuration": 4,
+        "RequireApproval": true,
+        "RequireMFA": true,
+        "RequireJustification": true,
+        "Approvers": []
+      },
+      "SecurityAdministrator": {
+        "RequireJIT": true,
+        "MaxActivationDuration": 8,
+        "RequireApproval": true,
+        "RequireMFA": true,
+        "RequireJustification": true,
+        "Approvers": []
+      },
+      "PrivilegedRoleAdministrator": {
+        "RequireJIT": true,
+        "MaxActivationDuration": 4,
+        "RequireApproval": true,
+        "RequireMFA": true,
+        "RequireJustification": true,
+        "Approvers": []
+      },
+      "Default": {
+        "RequireJIT": true,
+        "MaxActivationDuration": 8,
+        "RequireApproval": false,
+        "RequireMFA": true,
+        "RequireJustification": true,
+        "Approvers": []
+      }
+    },
+    "GlobalAdministratorLimit": 5,
+    "NotificationEmails": [
+      "security-team@yourdomain.com"
+    ]
+  },
+  
+  "IdentityGovernance": {
+    "Enabled": true,
+    "AccessReviews": {
+      "PrivilegedRoles": {
+        "Enabled": true,
+        "Frequency": "Quarterly",
+        "Reviewers": ["Manager", "GroupOwner"]
+      },
+      "GroupMembership": {
+        "Enabled": true,
+        "Frequency": "SemiAnnual",
+        "Reviewers": ["GroupOwner"]
+      },
+      "GuestUsers": {
+        "Enabled": true,
+        "Frequency": "Quarterly",
+        "Reviewers": ["Manager", "Sponsor"]
+      }
+    },
+    "EntitlementManagement": {
+      "Enabled": true,
+      "AutoExpireGuestAccess": true,
+      "DefaultGuestAccessDuration": 90
+    }
+  },
+  
+  "Monitoring": {
+    "Enabled": true,
+    "AuditLogRetention": {
+      "UseAzureStorage": true,
+      "StorageAccountName": "",
+      "RetentionDays": 365
+    },
+    "StreamToEventHub": {
+      "Enabled": false,
+      "EventHubNamespace": "",
+      "EventHubName": "",
+      "SIEMType": ""
+    },
+    "StreamToLogAnalytics": {
+      "Enabled": true,
+      "WorkspaceId": "",
+      "WorkspaceName": ""
+    },
+    "Alerts": {
+      "BreakGlassAccountUsage": {
+        "Enabled": true,
+        "Recipients": ["security-team@yourdomain.com"]
+      },
+      "PrivilegedRoleActivation": {
+        "Enabled": true,
+        "Recipients": ["security-team@yourdomain.com"]
+      },
+      "FailedMFAAttempts": {
+        "Enabled": true,
+        "Threshold": 5,
+        "Recipients": ["security-team@yourdomain.com"]
+      },
+      "NewApplicationConsent": {
+        "Enabled": true,
+        "Recipients": ["security-team@yourdomain.com"]
+      }
+    }
+  },
+  
+  "ApplicationSecurity": {
+    "Enabled": true,
+    "UserConsentSettings": {
+      "AllowUserConsent": false,
+      "AllowGroupOwnerConsent": false,
+      "RequireAdminConsentForApps": true
+    },
+    "ApplicationRegistration": {
+      "AllowUsersToRegisterApps": false,
+      "RestrictToAdmins": true
+    },
+    "RegularAuditSchedule": "Monthly"
+  },
+  
+  "ExternalCollaboration": {
+    "Enabled": true,
+    "B2BSettings": {
+      "AllowInvitations": true,
+      "AllowedToInvite": ["Admins", "GuestInviters"],
+      "RequireApproval": true,
+      "AllowedDomains": [],
+      "BlockedDomains": [],
+      "EnableAccessReviews": true
+    },
+    "GuestUserAccess": "Restricted",
+    "ExternalSharingRestrictions": "Strict"
+  },
+  
+  "PasswordProtection": {
+    "Enabled": true,
+    "EnforceCustomBannedPasswords": true,
+    "CustomBannedPasswords": [
+      "CompanyName",
+      "ProductName",
+      "ClientName"
+    ],
+    "EnablePasswordProtectionOnPremises": false,
+    "LockoutThreshold": 5,
+    "LockoutDuration": 60
+  },
+  
+  "AdvancedSettings": {
+    "DisableWeakProtocols": {
+      "Enabled": true,
+      "DisableNTLMv1": true,
+      "DisableTLSv1": true
+    },
+    "RequireCompliantDevices": {
+      "Enabled": true,
+      "ForAllUsers": false,
+      "ForAdmins": true
+    },
+    "PrivilegedAccessWorkstations": {
+      "Enabled": false,
+      "RequireForAdmins": false,
+      "DeviceGroupId": ""
+    }
+  },
+  
+  "Reporting": {
+    "Enabled": true,
+    "GenerateWeeklyReports": true,
+    "GenerateMonthlyReports": true,
+    "ReportRecipients": [
+      "security-team@yourdomain.com",
+      "compliance@yourdomain.com"
+    ],
+    "IncludeMetrics": [
+      "MFAEnrollment",
+      "ConditionalAccessPolicyMatches",
+      "RiskySignIns",
+      "PrivilegedRoleActivations",
+      "GuestUserActivity"
+    ]
+  }
+}
+

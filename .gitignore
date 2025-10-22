@@ -1,0 +1,60 @@
+# Entra ID Hardening - Git Ignore File
+
+# Configuration files with sensitive data
+config.json
+
+# Credentials and password files
+*BREAK_GLASS_CREDENTIALS*.txt
+*PASSWORD*.txt
+*CREDENTIALS*.txt
+
+# Logs directory
+Logs/
+*.log
+
+# Rollback files (may contain sensitive data)
+Rollback/*.json
+
+# Reports (may contain sensitive organizational data)
+Reports/
+*.csv
+*.html
+
+# PowerShell module cache
+PSModuleCache/
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# IDE/Editor specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+*.bak
+
+# Backup files
+*.backup
+*.old
+
+# Keep template configuration
+!config.template.json
+
+# Keep directory structure but ignore contents
+Logs/.gitkeep
+Rollback/.gitkeep
+Reports/.gitkeep
+
