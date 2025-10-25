@@ -1,0 +1,25 @@
+name: Set repository topics
+
+on:
+  workflow_dispatch:
+
+jobs:
+  set-topics:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Set repository topics
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const topics = [
+              'azure-ad','entra','microsoft-entra','azure-security','security-hardening','powershell',
+              'mfa','conditional-access','pim','b2b','password-protection','audit-logging','application-security','automation'
+            ];
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            await github.rest.repos.replaceAllTopics({ owner, repo, names: topics });
+            core.info(`Set ${topics.length} topics on ${owner}/${repo}`);
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

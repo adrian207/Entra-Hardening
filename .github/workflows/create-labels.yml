@@ -1,0 +1,60 @@
+name: Create labels from file
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  create-labels:
+    name: Create or update labels
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create or update labels from `.github/labels.yml`
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const file = '.github/labels.yml';
+            if (!fs.existsSync(file)) {
+              core.info(`${file} not found; nothing to do.`);
+              return;
+            }
+            const content = fs.readFileSync(file, 'utf8');
+            // Naive YAML parsing for our simple structure
+            const blocks = content.split(/\n-\s+/).map(b => b.trim()).filter(Boolean);
+            for (const block of blocks) {
+              const nameMatch = block.match(/name:\s*(.*)/);
+              const colorMatch = block.match(/color:\s*(.*)/);
+              const descMatch = block.match(/description:\s*([\s\S]*)/);
+              if (!nameMatch || !colorMatch) continue;
+              const name = nameMatch[1].trim().replace(/^['"]|['"]$/g, '');
+              const color = colorMatch[1].trim().replace(/^['"]|['"]$/g, '');
+              let description = '';
+              if (descMatch) {
+                description = descMatch[1].split('\n').map(l => l.trim()).join(' ').trim().replace(/^['"]|['"]$/g, '');
+              }
+              try {
+                await github.rest.issues.createLabel({ owner, repo, name, color, description });
+                core.info(`Created label: ${name}`);
+              } catch (err) {
+                // If label exists, update it
+                if (err.status === 422 || (err.message && err.message.includes('already exists'))) {
+                  try {
+                    await github.rest.issues.updateLabel({ owner, repo, name, color, description });
+                    core.info(`Updated label: ${name}`);
+                  } catch (updErr) {
+                    core.warning(`Failed to update label ${name}: ${updErr}`);
+                  }
+                } else {
+                  core.warning(`Failed to create label ${name}: ${err}`);
+                }
+              }
+            }
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

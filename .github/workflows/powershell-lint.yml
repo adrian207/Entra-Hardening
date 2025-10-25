@@ -1,0 +1,40 @@
+name: PowerShell lint (PSScriptAnalyzer)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: Run PSScriptAnalyzer
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run PSScriptAnalyzer
+        shell: pwsh
+        run: |
+          # Install the module for the current user
+          Install-Module -Name PSScriptAnalyzer -Force -Scope CurrentUser -AllowClobber
+
+          # Run analyzer against Modules/ and Common/ (if present)
+          $paths = @()
+          if (Test-Path Modules) { $paths += 'Modules' }
+          if (Test-Path Common) { $paths += 'Common' }
+          if ($paths.Count -eq 0) { Write-Host 'No Modules/ or Common/ folder found; skipping.'; exit 0 }
+
+          $results = Invoke-ScriptAnalyzer -Path $paths -Recurse -Severity Warning
+
+          if ($results) {
+            Write-Host 'PSScriptAnalyzer found issues:'
+            $results | ForEach-Object { Write-Host ($_ | Format-List | Out-String) }
+            # Exit with code 1 to fail the job when issues of severity Error are present
+            $errorCount = ($results | Where-Object { $_.Severity -eq 'Error' }).Count
+            if ($errorCount -gt 0) { Write-Error "Found $errorCount errors from PSScriptAnalyzer."; exit 1 }
+            # Otherwise allow warnings but keep job green; change to exit 1 to fail on warnings
+          } else {
+            Write-Host 'No issues found by PSScriptAnalyzer.'
+          }
