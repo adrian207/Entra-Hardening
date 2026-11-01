@@ -88,7 +88,7 @@ function Test-ConfigurationValid {
 try {
     # Determine config file path
     if (-not $ConfigPath) {
-        $scriptRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
+        $scriptRoot = Split-Path -Parent $PSScriptRoot  # repository root (this file is in Common\)
         $ConfigPath = Join-Path $scriptRoot "config.json"
         
         # Check if config.json exists, fall back to template
