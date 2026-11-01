@@ -9,7 +9,7 @@ Lightweight automation and hardening guidance for Microsoft Entra (Azure AD) env
 ## Quick links
 - Code: see the `Modules/` and `Common/` folders
 - Docs: this page serves as a simple GitHub Pages homepage (served from `/docs`)
-- License: `LICENSE.md`
+- License: `LICENSE`; disclaimer: `DISCLAIMER.md`
 
 ## Quickstart
 
@@ -52,4 +52,4 @@ This `docs/` folder can be served by GitHub Pages (Settings → Pages → Source
 
 ## License
 
-See `LICENSE.md`.
+See `LICENSE` and `DISCLAIMER.md`.

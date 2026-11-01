@@ -1,32 +1,6 @@
-# License
+# Disclaimer
 
-## MIT License
-
-Copyright (c) 2025 Entra ID Hardening Scripts Project
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-**THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.**
-
----
-
-## Disclaimer
-
-### Important Security Notice
+## Important Security Notice
 
 These scripts make significant changes to your Microsoft Entra ID (Azure AD) tenant's security configuration. While they implement security best practices based on Microsoft's official guidance, you should:
 
@@ -37,7 +11,7 @@ These scripts make significant changes to your Microsoft Entra ID (Azure AD) ten
 5. **Monitor Impact**: Review logs and user feedback after deployment
 6. **Understand Risk**: You are responsible for the security of your environment
 
-### No Warranty or Guarantee
+## No Warranty or Guarantee
 
 The authors and contributors of this project:
 
@@ -46,7 +20,7 @@ The authors and contributors of this project:
 - Are not responsible for any service disruptions or data loss
 - Do not provide official support (this is a community/reference implementation)
 
-### Microsoft Official Documentation
+## Microsoft Official Documentation
 
 These scripts are based on Microsoft's published security guidance as of October 2025. Always refer to the official Microsoft documentation for the most current recommendations:
 
@@ -54,7 +28,7 @@ These scripts are based on Microsoft's published security guidance as of October
 - [Conditional Access Documentation](https://learn.microsoft.com/en-us/entra/identity/conditional-access/)
 - [Privileged Identity Management](https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/)
 
-### Use at Your Own Risk
+## Use at Your Own Risk
 
 By using these scripts, you acknowledge that:
 
@@ -64,7 +38,7 @@ By using these scripts, you acknowledge that:
 - You accept full responsibility for any consequences of their use
 - You will monitor and maintain the configurations over time
 
-### Professional Services
+## Professional Services
 
 For production deployments in critical environments, consider:
 
@@ -73,7 +47,7 @@ For production deployments in critical environments, consider:
 - Hiring certified security professionals
 - Conducting formal security assessments
 
-### Compliance and Regulatory Requirements
+## Compliance and Regulatory Requirements
 
 These scripts implement general security best practices but may not meet all requirements for:
 
@@ -84,7 +58,7 @@ These scripts implement general security best practices but may not meet all req
 
 Consult with your compliance team before deployment.
 
-### Support
+## Support
 
 This is a reference implementation and community project. Support is provided on a best-effort basis through:
 
@@ -109,7 +83,7 @@ These dependencies have their own licenses and terms of use.
 
 ## Contribution License
 
-By contributing to this project, you agree that your contributions will be licensed under the same MIT License that covers this project.
+By contributing to this project, you agree that your contributions will be licensed under the same MIT License that covers this project (see [LICENSE](LICENSE)).
 
 ---
 

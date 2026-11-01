@@ -76,7 +76,7 @@ docs/                       Setup guide
 
 ## License
 
-MIT. See [LICENSE.md](LICENSE.md).
+MIT. See [LICENSE](LICENSE). Read [DISCLAIMER.md](DISCLAIMER.md) before running the scripts against a tenant.
 
 ## Author
 
